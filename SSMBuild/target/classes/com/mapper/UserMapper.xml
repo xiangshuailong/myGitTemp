@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.UserDao">
+
+    <update id="updateUser" parameterType="com.pojo.User">
+        update xiang.User set name = #{name} where id = #{id}
+    </update>
+
+    <select id="selectUser" parameterType="com.pojo.User" resultType="com.pojo.User">
+        select * from xiang.User
+    </select>
+
+    <select id="selectUserList" parameterType="java.util.List" resultType="com.pojo.User">
+        select * from xiang.User
+        <where>
+            age in
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item.age,jdbcType=NUMERIC}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectUserArray" parameterType="java.util.List" resultType="com.pojo.User">
+        select * from xiang.User
+        <where>
+            age in
+            <foreach collection="array" item="item" open="(" close=")" separator=",">
+                #{item,jdbcType=NUMERIC}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>
